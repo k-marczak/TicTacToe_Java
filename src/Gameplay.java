@@ -3,20 +3,33 @@ import java.util.Scanner;
 
 public class Gameplay {
 
-
     char[][] board = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
-
 
     public Gameplay() {
 
         while (true) {
 
             playerMove(board);
+            if(isGameFinished(board)){
+                break;
+            }
             computerMove(board);
         }
 
-
     }
+
+    private boolean isGameFinished(char[][] board) {
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[i].length; j++){
+                if(board[i][j] == ' '){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
 
     // Computer MOVE METHOD
     public static void computerMove(char[][] board) {
@@ -46,14 +59,13 @@ public class Gameplay {
             positionPick = scanner.nextInt();
             if (isValidMove(board, positionPick)) {
                 break;
-            }
+            }else
+                System.out.println(positionPick + " is not a valid move: Choose once again! ");
         }
         System.out.println("Jestem tutaj");
         placeMove(board, positionPick, 'X');
         printBoard(board);
     }
-
-
 
 
 
