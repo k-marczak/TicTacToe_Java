@@ -19,13 +19,30 @@ public class Gameplay {
     }
 
     private boolean isGameFinished(char[][] board) {
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[i].length; j++){
-                if(board[i][j] == ' '){
+
+        if(winScenario(board, 'X')) {
+            printBoard(board);
+            System.out.println("Player wins!");
+            return true;
+        }
+
+
+        if(winScenario(board, 'O')) {
+            printBoard(board);
+            System.out.println("Computer wins!");
+            return true;
+        }
+
+
+        for (char[] chars : board) {
+            for (int j = 0; j < chars.length; j++) {
+                if (chars[j] == ' ') {
                     return false;
                 }
             }
         }
+        printBoard(board);
+        System.out.println("Nie ma więcej ruchów!");
         return true;
     }
 
@@ -89,6 +106,7 @@ public class Gameplay {
     public static boolean isValidMove(char[][] board, int position) {
 
         switch (position) {
+
             case 1:
                 return (board[0][0] == ' ');
             case 2:
@@ -107,6 +125,7 @@ public class Gameplay {
                 return (board[2][1] == ' ');
             case 9:
                 return (board[2][2] == ' ');
+
         }
 
 
@@ -114,6 +133,26 @@ public class Gameplay {
         return false;
 
     }
+
+
+
+
+    public static boolean winScenario(char[][] board, char symbol){
+        if((board[0][0] == symbol && board [0][1] == symbol && board [0][2] == symbol) ||
+                (board[1][0] == symbol && board [1][1] == symbol && board [1][2] == symbol) ||
+                (board[2][0] == symbol && board [2][1] == symbol && board [2][2] == symbol) ||
+
+                (board[0][0] == symbol && board [1][0] == symbol && board [2][0] == symbol) ||
+                (board[0][1] == symbol && board [1][1] == symbol && board [2][1] == symbol) ||
+                (board[0][2] == symbol && board [1][2] == symbol && board [2][2] == symbol) ||
+
+                (board[0][0] == symbol && board [1][1] == symbol && board [2][2] == symbol) ||
+                (board[0][2] == symbol && board [1][1] == symbol && board [2][0] == symbol) ) {
+            return true;
+        }
+        return false;
+    }
+
 
 
     //PRINTING THE BOARD
